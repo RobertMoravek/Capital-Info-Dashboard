@@ -18,9 +18,10 @@ const showDashboard: boolean = false;
 
 // Fetch the Capitals and countries
 async function getData(): Promise<CapitalsAndCountries> {
-    const res = await fetch('https://countriesnow.space/api/v0.1/countries/capital');
+    // const res = await fetch('https://countriesnow.space/api/v0.1/countries/capital');
+    const res = await fetch('https://restcountries.com/v3.1/all');
     const finalRes = await res.json();
-    return finalRes.data;
+    return finalRes;
 }
 
 // Chose a random country
@@ -39,6 +40,7 @@ function choseRandomCountry(): void {
         alreadyShownCountries.push(randomNumber);
         // console.log('else', alreadyShownCountries);
         currentCountryNumber.value = randomNumber;
+
     }
 }
 
