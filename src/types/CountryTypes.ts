@@ -1,6 +1,6 @@
-export type { CapitalsAndCountries };
+export type { Countries };
 
-type CapitalsAndCountries = {
+type Countries = {
     name: Name;
     tld?: string[];
     cca2: string;

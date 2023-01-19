@@ -3,51 +3,90 @@
 // IMPORTS
 
 import { ref, reactive, onMounted, watch } from 'vue';
-import type { CapitalsAndCountries } from './types/types';
+import type { Countries } from './types/CountryTypes';
+import type { Capitals } from './types/CapitalTypes';
 import LoadingDashboard from './components/LoadingDashboard.vue';
 import CapitalName from './components/CapitalName.vue';
 import CityPictures from './components/CityPictures.vue';
 import WeatherComponent from './components/WeatherComponent.vue';
+import ClockComponent from './components/ClockComponent.vue';
 
 // VARIABLES
 
-let capitalsandCountries: CapitalsAndCountries;
+let countryData: Countries;
+let capitalData: Capitals | false;
 let alreadyShownCountries: number[] = reactive([]);
 let currentCountryNumber = ref<number | null>(null);
+let timezoneOffset = ref<number | null>(null);
 const showDashboard: boolean = false;
 
 //////////////////////////////////////
 //  FUNCTIONS
 
-// Fetch the Capitals and countries
-async function getData(): Promise<CapitalsAndCountries> {
-    // const res = await fetch('https://countriesnow.space/api/v0.1/countries/capital');
-    const res = await fetch('https://restcountries.com/v3.1/all');
-    const rawRes = await res.json();
+// Fetch the all countries and clean them
+async function getCountryData(): Promise<Countries> {
+    try {
+        const res = await fetch('https://restcountries.com/v3.1/all');
+        const rawRes = await res.json();
 
-    const cleanedRes = rawRes.filter((country: any) => 'capital' in country && country.capital.length > 0 && country.independent && country.capitalInfo);
+        const cleanedRes = rawRes.filter((country: any) => 'capital' in country && country.capital.length > 0 && country.independent && country.capitalInfo);
 
-    console.log(cleanedRes.length);
-    return cleanedRes;
+        console.log(cleanedRes.length);
+        return cleanedRes;
+    } catch (err) {
+        console.log(err);
+        return getCountryData();
+    }
+}
+
+// Fetch the a capital
+async function getCapitalData(city: string): Promise<false | Capitals> {
+    try {
+        const res = await fetch(`https://restcountries.com/v3.1/capital/${city}`);
+        const rawRes = await res.json();
+
+        return rawRes;
+    } catch (err) {
+        console.log(err);
+        return false;
+    }
 }
 
 // Chose a random country
-function choseRandomCountry(): void {
-    let randomNumber: number = Math.floor(Math.random() * capitalsandCountries.length);
+async function choseRandomCountry(): Promise<any> {
+    let randomNumber: number = Math.floor(Math.random() * countryData.length);
 
     // If it's already in alreadyShownCountries, try again
-    if (alreadyShownCountries.includes(randomNumber) && alreadyShownCountries.length < capitalsandCountries.length) {
+    if (alreadyShownCountries.includes(randomNumber) && alreadyShownCountries.length < countryData.length) {
         choseRandomCountry();
-    } else if (alreadyShownCountries.includes(randomNumber) && alreadyShownCountries.length >= capitalsandCountries.length) {
-        alreadyShownCountries = [];
-        alreadyShownCountries.push(randomNumber);
+    } else if (alreadyShownCountries.includes(randomNumber) && alreadyShownCountries.length >= countryData.length) {
         // console.log('else if', alreadyShownCountries);
-        currentCountryNumber.value = randomNumber;
+        let tempCapitalData: false | Capitals = await getCapitalData(countryData[randomNumber].capital![0]);
+        if (tempCapitalData) {
+            alreadyShownCountries = [];
+            alreadyShownCountries.push(randomNumber);
+            currentCountryNumber.value = randomNumber;
+            capitalData = tempCapitalData;
+        } else {
+            choseRandomCountry();
+        }
     } else {
-        alreadyShownCountries.push(randomNumber);
-        // console.log('else', alreadyShownCountries);
-        currentCountryNumber.value = randomNumber;
+        console.log(countryData[randomNumber].capital![0]);
+        let tempCapitalData: false | Capitals = await getCapitalData(countryData[randomNumber].capital![0]);
+        if (tempCapitalData) {
+            alreadyShownCountries.push(randomNumber);
+            currentCountryNumber.value = randomNumber;
+            capitalData = tempCapitalData;
+            console.log(countryData[randomNumber]);
+            console.log(capitalData);
+        } else {
+            choseRandomCountry();
+        }
     }
+}
+
+function setTimeZoneOffset(event: any) {
+    timezoneOffset.value = event;
 }
 
 //////////////////////////////////////////
@@ -56,7 +95,7 @@ function choseRandomCountry(): void {
 // On mount...
 onMounted(async () => {
     // ...get the list of Capitals and Countries
-    capitalsandCountries = await getData();
+    countryData = await getCountryData();
 
     // Chose a random country out of it
     choseRandomCountry();
@@ -86,27 +125,30 @@ watch(currentCountryNumber, (newNum: number | null, oldNum: number | null) => {
     <Transition>
         <CapitalName
             v-if="currentCountryNumber"
-            :capitalName="capitalsandCountries[currentCountryNumber].capital![0]"
-            :countryName="capitalsandCountries[currentCountryNumber].name.common"
-            :continentName="capitalsandCountries[currentCountryNumber].continents[0]"
-            :flagUrl="capitalsandCountries[currentCountryNumber].flags.png"
-            :flagEmoji="capitalsandCountries[currentCountryNumber].flag"
+            :capitalName="countryData[currentCountryNumber].capital![0]"
+            :countryName="countryData[currentCountryNumber].name.common"
+            :continentName="countryData[currentCountryNumber].continents[0]"
+            :flagUrl="countryData[currentCountryNumber].flags.png"
+            :flagEmoji="countryData[currentCountryNumber].flag"
         />
     </Transition>
     <!-- <Suspense>
         <CityPictures
             v-if="currentCountryNumber"
-            :capitalName="capitalsandCountries[currentCountryNumber].capital![0]"
-            :countryName="capitalsandCountries[currentCountryNumber].name.common"
+            :capitalName="countryData[currentCountryNumber].capital![0]"
+            :countryName="countryData[currentCountryNumber].name.common"
         />
     </Suspense> -->
     <Suspense>
         <WeatherComponent
             v-if="currentCountryNumber"
-            :cityLat="capitalsandCountries[currentCountryNumber].capitalInfo.latlng![0]"
-            :cityLong="capitalsandCountries[currentCountryNumber].capitalInfo.latlng![1]"
-
+            :cityLat="countryData[currentCountryNumber].capitalInfo.latlng![0]"
+            :cityLong="countryData[currentCountryNumber].capitalInfo.latlng![1]"
+            @timezone-offset-received="setTimeZoneOffset($event)"
         />
+    </Suspense>
+    <Suspense>
+        <ClockComponent v-if="currentCountryNumber" :timezoneOffset="timezoneOffset" />
     </Suspense>
 </template>
 
