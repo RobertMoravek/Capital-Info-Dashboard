@@ -7,6 +7,7 @@ import type { CapitalsAndCountries } from './types/types';
 import LoadingDashboard from './components/LoadingDashboard.vue';
 import CapitalName from './components/CapitalName.vue';
 import CityPictures from './components/CityPictures.vue';
+import WeatherComponent from './components/WeatherComponent.vue';
 
 // VARIABLES
 
@@ -24,13 +25,9 @@ async function getData(): Promise<CapitalsAndCountries> {
     const res = await fetch('https://restcountries.com/v3.1/all');
     const rawRes = await res.json();
 
-    const cleanedRes = rawRes.filter((country: any) => 'capital' in country && country.capital.length > 0 && country.independent);
-    // const cleanedRes = rawRes.map((country: any) => {
-    //     if ('capital' in country) {
-    //         return country;
-    //     }
-    // });
-    console.log(cleanedRes);
+    const cleanedRes = rawRes.filter((country: any) => 'capital' in country && country.capital.length > 0 && country.independent && country.capitalInfo);
+
+    console.log(cleanedRes.length);
     return cleanedRes;
 }
 
@@ -64,7 +61,7 @@ onMounted(async () => {
     // Chose a random country out of it
     choseRandomCountry();
 
-    setInterval(choseRandomCountry, 30000);
+    setInterval(choseRandomCountry, 100000);
 });
 
 // Watch for a change in the currentCountryNumber
@@ -96,11 +93,19 @@ watch(currentCountryNumber, (newNum: number | null, oldNum: number | null) => {
             :flagEmoji="capitalsandCountries[currentCountryNumber].flag"
         />
     </Transition>
-    <Suspense>
+    <!-- <Suspense>
         <CityPictures
             v-if="currentCountryNumber"
             :capitalName="capitalsandCountries[currentCountryNumber].capital![0]"
             :countryName="capitalsandCountries[currentCountryNumber].name.common"
+        />
+    </Suspense> -->
+    <Suspense>
+        <WeatherComponent
+            v-if="currentCountryNumber"
+            :cityLat="capitalsandCountries[currentCountryNumber].capitalInfo.latlng![0]"
+            :cityLong="capitalsandCountries[currentCountryNumber].capitalInfo.latlng![1]"
+
         />
     </Suspense>
 </template>

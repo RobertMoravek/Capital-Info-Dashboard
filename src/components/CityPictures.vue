@@ -27,7 +27,7 @@ async function getPexelPhotos() {
         let photos = await client.photos.search({ query, per_page: 10, size: 'small' });
 
         photoResponse.value = photos;
-        console.log(photoResponse);
+        console.log(photoResponse.value);
     } catch (err) {
         console.log(err);
     }
