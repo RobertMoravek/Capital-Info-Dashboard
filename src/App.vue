@@ -4,13 +4,14 @@
 
 import { ref, reactive, onMounted, watch } from 'vue';
 import type { CapitalsAndCountries } from './types/types';
+import LoadingDashboard from './components/LoadingDashboard.vue';
 
 // VARIABLES
 
 let capitalsandCountries: CapitalsAndCountries;
 let alreadyShownCountries: number[] = reactive([]);
 let currentCountryNumber = ref<number | null>(null);
-const showDashboard : boolean = false;
+const showDashboard: boolean = false;
 
 //////////////////////////////////////
 //  FUNCTIONS
@@ -38,7 +39,6 @@ function choseRandomCountry(): void {
         alreadyShownCountries.push(randomNumber);
         // console.log('else', alreadyShownCountries);
         currentCountryNumber.value = randomNumber;
-
     }
 }
 
@@ -58,7 +58,7 @@ onMounted(async () => {
 
 // Watch for a change in the currentCountryNumber
 watch(currentCountryNumber, (newNum: number | null, oldNum: number | null) => {
-    if (oldNum === null ) {
+    if (oldNum === null) {
         // Change props -> triggers API call in Components
         // Wait X amount of time
         // change showDashboard to true
@@ -69,12 +69,10 @@ watch(currentCountryNumber, (newNum: number | null, oldNum: number | null) => {
         // change showDashboard to true
     }
 });
-
-
 </script>
 
 <template>
-    <div></div>
+    <LoadingDashboard> </LoadingDashboard>
 </template>
 
 <style>
