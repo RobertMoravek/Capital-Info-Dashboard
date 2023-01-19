@@ -6,6 +6,7 @@ import { ref, reactive, onMounted, watch } from 'vue';
 import type { CapitalsAndCountries } from './types/types';
 import LoadingDashboard from './components/LoadingDashboard.vue';
 import CapitalName from './components/CapitalName.vue';
+import CityPictures from './components/CityPictures.vue';
 
 // VARIABLES
 
@@ -63,7 +64,7 @@ onMounted(async () => {
     // Chose a random country out of it
     choseRandomCountry();
 
-    setInterval(choseRandomCountry, 20000);
+    setInterval(choseRandomCountry, 30000);
 });
 
 // Watch for a change in the currentCountryNumber
@@ -88,12 +89,20 @@ watch(currentCountryNumber, (newNum: number | null, oldNum: number | null) => {
     <Transition>
         <CapitalName
             v-if="currentCountryNumber"
-            :capital-name="capitalsandCountries[currentCountryNumber].capital![0]"
-            :country-name="capitalsandCountries[currentCountryNumber].name.common"
-            :continent-name="capitalsandCountries[currentCountryNumber].continents[0]"
-            :flag-url="capitalsandCountries[currentCountryNumber].flags.png"
+            :capitalName="capitalsandCountries[currentCountryNumber].capital![0]"
+            :countryName="capitalsandCountries[currentCountryNumber].name.common"
+            :continentName="capitalsandCountries[currentCountryNumber].continents[0]"
+            :flagUrl="capitalsandCountries[currentCountryNumber].flags.png"
+            :flagEmoji="capitalsandCountries[currentCountryNumber].flag"
         />
     </Transition>
+    <Suspense>
+        <CityPictures
+            v-if="currentCountryNumber"
+            :capitalName="capitalsandCountries[currentCountryNumber].capital![0]"
+            :countryName="capitalsandCountries[currentCountryNumber].name.common"
+        />
+    </Suspense>
 </template>
 
 <style>
