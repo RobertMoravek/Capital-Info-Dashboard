@@ -5,6 +5,7 @@
 import { ref, reactive, onMounted, watch } from 'vue';
 import type { CapitalsAndCountries } from './types/types';
 import LoadingDashboard from './components/LoadingDashboard.vue';
+import CapitalName from './components/CapitalName.vue';
 
 // VARIABLES
 
@@ -20,8 +21,16 @@ const showDashboard: boolean = false;
 async function getData(): Promise<CapitalsAndCountries> {
     // const res = await fetch('https://countriesnow.space/api/v0.1/countries/capital');
     const res = await fetch('https://restcountries.com/v3.1/all');
-    const finalRes = await res.json();
-    return finalRes;
+    const rawRes = await res.json();
+
+    const cleanedRes = rawRes.filter((country: any) => 'capital' in country && country.capital.length > 0 && country.independent);
+    // const cleanedRes = rawRes.map((country: any) => {
+    //     if ('capital' in country) {
+    //         return country;
+    //     }
+    // });
+    console.log(cleanedRes);
+    return cleanedRes;
 }
 
 // Chose a random country
@@ -40,7 +49,6 @@ function choseRandomCountry(): void {
         alreadyShownCountries.push(randomNumber);
         // console.log('else', alreadyShownCountries);
         currentCountryNumber.value = randomNumber;
-
     }
 }
 
@@ -75,7 +83,16 @@ watch(currentCountryNumber, (newNum: number | null, oldNum: number | null) => {
 
 <template>
     <Transition>
-        <LoadingDashboard v-if="!currentCountryNumber"/>
+        <LoadingDashboard v-if="!currentCountryNumber" />
+    </Transition>
+    <Transition>
+        <CapitalName
+            v-if="currentCountryNumber"
+            :capital-name="capitalsandCountries[currentCountryNumber].capital![0]"
+            :country-name="capitalsandCountries[currentCountryNumber].name.common"
+            :continent-name="capitalsandCountries[currentCountryNumber].continents[0]"
+            :flag-url="capitalsandCountries[currentCountryNumber].flags.png"
+        />
     </Transition>
 </template>
 
