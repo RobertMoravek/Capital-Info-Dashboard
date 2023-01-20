@@ -2,6 +2,8 @@
 import { ref, watch } from 'vue';
 import moment from 'moment';
 
+let clockRunning: ReturnType<typeof setInterval> | null = null;
+
 const props = defineProps<{
     timezoneOffset: number | null;
 }>();
@@ -9,7 +11,6 @@ const props = defineProps<{
 watch(
     () => props.timezoneOffset,
     () => {
-        console.log('i watched');
         calculateTime();
     }
 );
@@ -21,8 +22,9 @@ function calculateTime() {
         let date = moment.utc();
         let newDate = date.add(props.timezoneOffset, 'seconds');
         console.log(newDate.format());
-
-
+        if (!clockRunning) {
+            clockRunning = setInterval(calculateTime, 1000);
+        }
     }
 }
 </script>
