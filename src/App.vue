@@ -10,6 +10,7 @@ import CapitalName from './components/CapitalName.vue';
 import CityPictures from './components/CityPictures.vue';
 import WeatherComponent from './components/WeatherComponent.vue';
 import ClockComponent from './components/ClockComponent.vue';
+import HotelComponent from './components/HotelComponent.vue';
 
 // VARIABLES
 
@@ -139,16 +140,19 @@ watch(currentCountryNumber, (newNum: number | null, oldNum: number | null) => {
             :countryName="countryData[currentCountryNumber].name.common"
         />
     </Suspense> -->
-    <Suspense>
+    <!-- <Suspense>
         <WeatherComponent
             v-if="currentCountryNumber"
             :cityLat="countryData[currentCountryNumber].capitalInfo.latlng![0]"
             :cityLong="countryData[currentCountryNumber].capitalInfo.latlng![1]"
             @timezone-offset-received="setTimeZoneOffset($event)"
         />
-    </Suspense>
+    </Suspense> -->
     <Suspense>
         <ClockComponent v-if="currentCountryNumber" :timezoneOffset="timezoneOffset" />
+    </Suspense>
+    <Suspense>
+        <HotelComponent v-if="currentCountryNumber"/>
     </Suspense>
 </template>
 
