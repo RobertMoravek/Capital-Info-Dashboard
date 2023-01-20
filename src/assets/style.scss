@@ -7,13 +7,13 @@
     padding: 0;
     font-family: 'Raleway', sans-serif;
     color: $mainColor;
+    box-sizing: border-box;
 }
 
 html {
     min-height: 100%;
     width: 100%;
     min-width: 300px;
-    box-sizing: border-box;
 
     body {
         background-image: url('/bg.jpg');
@@ -21,13 +21,37 @@ html {
         background-repeat: no-repeat;
         background-position: center;
 
+
         #app {
-            padding: 30px;
+            min-height: 600px;
+            min-width: 300px;
+            height: 100vh;
+            padding: 40px 100px;
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            grid-template-rows: repeat(9, 85px);
+            grid-template-columns: repeat(11, 1fr);
+            grid-template-rows: repeat(7, 1fr);
             grid-column-gap: 20px;
             grid-row-gap: 20px;
+
+            @media screen and (max-width: $tablet-breakpoint) {
+                height: auto;
+                padding: 30px;
+                display: grid;
+                grid-template-columns: repeat(6, 1fr);
+                grid-template-rows: repeat(7, 110px);
+                grid-column-gap: 25px;
+                grid-row-gap: 25px;
+            }
+
+            @media screen and (max-width: $mobile-breakpoint) {
+                height: auto;
+                padding: 20px;
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                grid-template-rows: repeat(9, 85px);
+                grid-column-gap: 25px;
+                grid-row-gap: 25px;
+            }
         }
     }
 }
@@ -41,7 +65,11 @@ html {
 .flex-space-between {
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
+}
+
+.flex-rows {
+    flex-direction: column;
 }
 
 .rounded {
@@ -60,4 +88,54 @@ html {
 .v-enter-from,
 .v-leave-to {
     opacity: 0;
+}
+
+h1 {
+    font-style: normal;
+    font-weight: 800;
+    font-size: 42px;
+    line-height: 50px;
+    text-align: justify;
+    padding-bottom: 0.25rem;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space:nowrap;
+
+    @media screen and (max-width: $tablet-breakpoint) {
+        font-size: 34px;
+        line-height: 40px;
+    }
+
+    @media screen and (max-width: $mobile-breakpoint) {
+        font-size: 20px;
+        line-height: 24px;
+    }
+}
+
+h2 {
+    font-style: normal;
+    font-weight: 800;
+    font-size: 26px;
+    line-height: 32px;
+    text-align: justify;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space:nowrap;
+
+    @media screen and (max-width: $tablet-breakpoint) {
+        font-size: 20px;
+        line-height: 24px;
+    }
+
+    @media screen and (max-width: $mobile-breakpoint) {
+        font-size: 14px;
+        line-height: 16px;
+    }
+}
+
+.box-shadow {
+    -webkit-box-shadow: 2px 2px 3px 2px #818181;
+    box-shadow: 2px 2px 3px 2px #818181;
 }
