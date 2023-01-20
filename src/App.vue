@@ -11,6 +11,9 @@ import CityPictures from './components/CityPictures.vue';
 import WeatherComponent from './components/WeatherComponent.vue';
 import ClockComponent from './components/ClockComponent.vue';
 import HotelComponent from './components/HotelComponent.vue';
+import MapComponent from './components/MapComponent.vue';
+import CurrencyComponent from './components/CurrencyComponent.vue';
+import LanguageComponent from './components/LanguageComponent.vue';
 
 // VARIABLES
 
@@ -101,7 +104,7 @@ onMounted(async () => {
     // Chose a random country out of it
     choseRandomCountry();
 
-    setInterval(choseRandomCountry, 100000);
+    setInterval(choseRandomCountry, 10000);
 });
 
 // Watch for a change in the currentCountryNumber
@@ -151,9 +154,20 @@ watch(currentCountryNumber, (newNum: number | null, oldNum: number | null) => {
     <Suspense>
         <ClockComponent v-if="currentCountryNumber" :timezoneOffset="timezoneOffset" />
     </Suspense>
-    <Suspense>
-        <HotelComponent v-if="currentCountryNumber"/>
-    </Suspense>
+    <!-- <Suspense>
+        <HotelComponent v-if="currentCountryNumber" :cityLat="countryData[currentCountryNumber].capitalInfo.latlng![0]"
+            :cityLong="countryData[currentCountryNumber].capitalInfo.latlng![1]" />
+    </Suspense> -->
+
+    <!-- <Suspense>
+        <MapComponent
+            v-if="currentCountryNumber"
+            :capitalName="countryData[currentCountryNumber].capital![0]"
+            :countryName="countryData[currentCountryNumber].name.common"
+        />
+    </Suspense> -->
+    <CurrencyComponent v-if="currentCountryNumber" :currencyObject="countryData[currentCountryNumber].currencies" />
+    <LanguageComponent v-if="currentCountryNumber" :languageObject="countryData[currentCountryNumber].languages" />
 </template>
 
 <style>
