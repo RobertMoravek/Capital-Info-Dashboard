@@ -19,3 +19,6 @@ export default defineConfig({
         }
     }
 });
+
+import { config } from 'dotenv';
+config();
