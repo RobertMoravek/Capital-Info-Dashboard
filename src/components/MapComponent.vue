@@ -1,12 +1,25 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 
 const props = defineProps<{
     capitalName: string | undefined;
     countryName: string | undefined;
 }>();
 
-let url = `https://www.google.com/maps/embed/v1/place?key=AIzaSyAdHIW7wZ33VDUNtOe93ODteMrFhSmnW8I&q=${props.capitalName}, ${props.countryName}&zoom=2`;
+watch(
+    () => props.capitalName,
+    () => {
+        updateUrl();
+    }
+);
+
+let url = ref<string> (`https://www.google.com/maps/embed/v1/place?key=AIzaSyAdHIW7wZ33VDUNtOe93ODteMrFhSmnW8I&q=${props.capitalName}, ${props.countryName}&zoom=2`);
+
+function updateUrl() {
+    url = ref<string> (`https://www.google.com/maps/embed/v1/place?key=AIzaSyAdHIW7wZ33VDUNtOe93ODteMrFhSmnW8I&q=${props.capitalName}, ${props.countryName}&zoom=2`);
+}
+
+
 </script>
 
 <template>
