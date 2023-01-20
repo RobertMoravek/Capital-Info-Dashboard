@@ -12,6 +12,7 @@ import WeatherComponent from './components/WeatherComponent.vue';
 import ClockComponent from './components/ClockComponent.vue';
 import HotelComponent from './components/HotelComponent.vue';
 import MapComponent from './components/MapComponent.vue';
+import CurrencyComponent from './components/CurrencyComponent.vue';
 
 // VARIABLES
 
@@ -157,13 +158,14 @@ watch(currentCountryNumber, (newNum: number | null, oldNum: number | null) => {
             :cityLong="countryData[currentCountryNumber].capitalInfo.latlng![1]" />
     </Suspense> -->
 
-    <Suspense>
+    <!-- <Suspense>
         <MapComponent
             v-if="currentCountryNumber"
             :capitalName="countryData[currentCountryNumber].capital![0]"
             :countryName="countryData[currentCountryNumber].name.common"
         />
-    </Suspense>
+    </Suspense> -->
+    <CurrencyComponent v-if="currentCountryNumber" :currencyObject="countryData[currentCountryNumber].currencies" />
 </template>
 
 <style>
