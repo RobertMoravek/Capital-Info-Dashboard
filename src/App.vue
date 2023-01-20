@@ -13,6 +13,7 @@ import ClockComponent from './components/ClockComponent.vue';
 import HotelComponent from './components/HotelComponent.vue';
 import MapComponent from './components/MapComponent.vue';
 import CurrencyComponent from './components/CurrencyComponent.vue';
+import LanguageComponent from './components/LanguageComponent.vue';
 
 // VARIABLES
 
@@ -166,6 +167,7 @@ watch(currentCountryNumber, (newNum: number | null, oldNum: number | null) => {
         />
     </Suspense> -->
     <CurrencyComponent v-if="currentCountryNumber" :currencyObject="countryData[currentCountryNumber].currencies" />
+    <LanguageComponent v-if="currentCountryNumber" :languageObject="countryData[currentCountryNumber].languages" />
 </template>
 
 <style>
