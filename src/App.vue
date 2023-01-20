@@ -11,6 +11,7 @@ import CityPictures from './components/CityPictures.vue';
 import WeatherComponent from './components/WeatherComponent.vue';
 import ClockComponent from './components/ClockComponent.vue';
 import HotelComponent from './components/HotelComponent.vue';
+import MapComponent from './components/MapComponent.vue';
 
 // VARIABLES
 
@@ -151,8 +152,16 @@ watch(currentCountryNumber, (newNum: number | null, oldNum: number | null) => {
     <Suspense>
         <ClockComponent v-if="currentCountryNumber" :timezoneOffset="timezoneOffset" />
     </Suspense>
+    <!-- <Suspense>
+        <HotelComponent v-if="currentCountryNumber" />
+    </Suspense> -->
+
     <Suspense>
-        <HotelComponent v-if="currentCountryNumber"/>
+        <MapComponent
+            v-if="currentCountryNumber"
+            :capitalName="countryData[currentCountryNumber].capital![0]"
+            :countryName="countryData[currentCountryNumber].name.common"
+        />
     </Suspense>
 </template>
 
