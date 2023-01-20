@@ -17,7 +17,7 @@ watch(
 function extractCurrency() {
     languageString = props.languageObject[Object.keys(props.languageObject)[0]];
     if (Object.keys(props.languageObject).length > 1) {
-        languageString += ' and others';
+        languageString += ' & others';
     }
     console.log(languageString);
 }

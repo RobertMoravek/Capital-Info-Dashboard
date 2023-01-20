@@ -17,7 +17,7 @@ watch(
 function extractCurrency() {
     currencyString = props.currencyObject[Object.keys(props.currencyObject)[0]].name
     if (Object.keys(props.currencyObject).length > 1) {
-        currencyString += ' and others';
+        currencyString += ' & others';
     }
     console.log(currencyString);
 }
