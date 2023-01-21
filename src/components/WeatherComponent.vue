@@ -21,7 +21,6 @@ async function getWeatherData(lat: number, long: number) {
         );
         weatherData.value = await tempWeatherData.json();
         emit('timezone-offset-received', weatherData.value!.timezone_offset);
-        console.log(weatherData);
     } catch (err) {
         console.log(err);
     }
