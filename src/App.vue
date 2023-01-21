@@ -158,13 +158,13 @@ watch(currentCountryNumber, (newNum: number | null, oldNum: number | null) => {
             :cityLong="countryData[currentCountryNumber].capitalInfo.latlng![1]" />
     </Suspense> -->
 
-    <!-- <Suspense>
+    <Suspense>
         <MapComponent
             v-if="currentCountryNumber"
             :capitalName="countryData[currentCountryNumber].capital![0]"
             :countryName="countryData[currentCountryNumber].name.common"
         />
-    </Suspense> -->
+    </Suspense>
     <CurrencyComponent v-if="currentCountryNumber" :currencyObject="countryData[currentCountryNumber].currencies" />
     <LanguageComponent v-if="currentCountryNumber" :languageObject="countryData[currentCountryNumber].languages" />
 </template>
