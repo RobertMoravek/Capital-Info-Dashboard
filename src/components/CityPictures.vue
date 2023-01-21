@@ -58,7 +58,7 @@ function startSlideShow(): void {
 </script>
 
 <template>
-    <div class="photos rounded bg-light border-light" v-if="photos">
+    <div class="photos rounded bg-light" v-if="photos">
         <TransitionGroup appear>
             <img :src="photo.src.medium" alt="" v-for="(photo, index) in photos!.photos" :key="index" v-show="index == currentPicture" />
         </TransitionGroup>
