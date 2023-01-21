@@ -40,7 +40,7 @@ const props = defineProps<{
         grid-column-start: 1;
         grid-column-end: 4;
         grid-row-start: 1;
-        grid-row-end: 2;
+        grid-row-end: 3;
     }
 
     border: 3px solid $mainLightColor;
