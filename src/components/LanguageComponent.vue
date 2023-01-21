@@ -53,5 +53,8 @@ extractCurrency();
         grid-row-start: 7;
         grid-row-end: 8;
     }
+    h1 {
+        height: 50px;
+    }
 }
 </style>

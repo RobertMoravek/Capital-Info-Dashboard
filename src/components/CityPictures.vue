@@ -42,7 +42,8 @@ async function getPexelPhotos() {
 }
 
 function startSlideShow(): void {
-    if (!slideShowRunning.value) {
+    if (slideShowRunning.value == false) {
+        slideShowRunning.value = true;
         currentPicture.value = 0;
         setInterval(() => {
             if (currentPicture.value < 10) {
