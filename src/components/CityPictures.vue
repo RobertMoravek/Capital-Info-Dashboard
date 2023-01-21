@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { PhotosWithTotalResults, ErrorResponse } from 'pexels';
 import { onMounted, ref, watch } from 'vue';
 import { createClient } from 'pexels';
 
@@ -10,8 +11,10 @@ const props = defineProps<{
     countryName: string | undefined;
 }>();
 
-let photoResponse = ref<any>();
-
+let currentPicture = ref<number>(0);
+let photoResponse = ref<PhotosWithTotalResults | ErrorResponse | null>(null);
+let photos = ref<PhotosWithTotalResults | null>(null);
+let slideShowRunning = ref<boolean>(false);
 onMounted(() => getPexelPhotos());
 
 watch(
@@ -21,21 +24,75 @@ watch(
     }
 );
 
+watch(photoResponse, () => {
+    if (photoResponse && !('error' in photoResponse!.value!)) {
+        photos.value = photoResponse.value;
+        console.log('starting slideshow');
+        startSlideShow();
+    }
+});
+
 async function getPexelPhotos() {
     try {
-        let query = props.capitalName + ' sights ' + props.countryName;
-        let photos = await client.photos.search({ query, per_page: 10, size: 'small' });
-
-        photoResponse.value = photos;
-        console.log(photoResponse.value);
+        let query: string = props.capitalName + ' sights ' + props.countryName;
+        photoResponse.value = await client.photos.search({ query, per_page: 10, size: 'small', orientation: 'landscape' });
     } catch (err) {
         console.log(err);
+    }
+}
+
+function startSlideShow(): void {
+    if (!slideShowRunning.value) {
+        currentPicture.value = 0;
+        setInterval(() => {
+            if (currentPicture.value < 10) {
+                console.log(currentPicture.value);
+                currentPicture.value++;
+            } else {
+                currentPicture.value = 0;
+            }
+        }, 5000);
+
     }
 }
 </script>
 
 <template>
-    <div></div>
+    <div class="photos rounded bg-light border-light" v-if="photos">
+        <TransitionGroup appear>
+            <img :src="photo.src.medium" alt="" v-for="(photo, index) in photos!.photos" :key="index" v-show="index == currentPicture" />
+        </TransitionGroup>
+    </div>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.photos {
+    grid-column-start: 1;
+    grid-column-end: 4;
+    grid-row-start: 3;
+    grid-row-end: 7;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+
+    img {
+        object-position: 50% 50%;
+        object-fit: cover;
+        height: 100%;
+        width: 100%;
+    }
+
+    @media screen and (min-width: $mobile-breakpoint) {
+        grid-column-start: 1;
+        grid-column-end: 7;
+        grid-row-start: 2;
+        grid-row-end: 5;
+    }
+    @media screen and (min-width: $tablet-breakpoint) {
+        grid-column-start: 1;
+        grid-column-end: 6;
+        grid-row-start: 1;
+        grid-row-end: 6;
+    }
+}
+</style>

@@ -35,7 +35,7 @@ async function getCountryData(): Promise<Countries> {
 
         const cleanedRes = rawRes.filter((country: any) => 'capital' in country && country.capital.length > 0 && country.independent && country.capitalInfo);
 
-        console.log(cleanedRes.length);
+        // console.log(cleanedRes.length);
         return cleanedRes;
     } catch (err) {
         console.log(err);
@@ -75,14 +75,14 @@ async function choseRandomCountry(): Promise<any> {
             choseRandomCountry();
         }
     } else {
-        console.log(countryData[randomNumber].capital![0]);
+        // console.log(countryData[randomNumber].capital![0]);
         let tempCapitalData: false | Capitals = await getCapitalData(countryData[randomNumber].capital![0]);
         if (tempCapitalData) {
             alreadyShownCountries.push(randomNumber);
             currentCountryNumber.value = randomNumber;
             capitalData = tempCapitalData;
-            console.log(countryData[randomNumber]);
-            console.log(capitalData);
+            // console.log(countryData[randomNumber]);
+            // console.log(capitalData);
         } else {
             choseRandomCountry();
         }
@@ -104,7 +104,7 @@ onMounted(async () => {
     // Chose a random country out of it
     choseRandomCountry();
 
-    setInterval(choseRandomCountry, 100000);
+    setInterval(choseRandomCountry, 20000);
 });
 
 // Watch for a change in the currentCountryNumber
@@ -135,13 +135,13 @@ watch(currentCountryNumber, (newNum: number | null, oldNum: number | null) => {
             :flagEmoji="countryData[currentCountryNumber].flag"
         />
     </Transition>
-    <!-- <Suspense>
+    <Suspense>
         <CityPictures
             v-if="currentCountryNumber"
             :capitalName="countryData[currentCountryNumber].capital![0]"
             :countryName="countryData[currentCountryNumber].name.common"
         />
-    </Suspense> -->
+    </Suspense>
     <Suspense>
         <WeatherComponent
             v-if="currentCountryNumber"
