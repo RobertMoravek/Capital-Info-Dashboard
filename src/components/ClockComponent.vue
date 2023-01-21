@@ -22,7 +22,7 @@ function calculateTime() {
         // let date = moment.utc().utcOffset(60);
 
         let date = moment.utc();
-        newDate.value = date.add(props.timezoneOffset, 'seconds').format('hh:mm:ss');
+        newDate.value = date.add(props.timezoneOffset, 'seconds').format('HH:mm:ss');
         if (!clockRunning) {
             clockRunning = setInterval(calculateTime, 1000);
         }

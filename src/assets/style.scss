@@ -116,15 +116,6 @@ html {
     transition: opacity 1s ease;
 }
 
-// .list-enter-active,
-// .list-leave-active {
-//     transition: all 1.5s ease;
-// }
-// .list-enter-from,
-// .list-leave-to {
-//     opacity: 0;
-//     transform: translateX(30px);
-// }
 
 h1 {
     font-style: normal;
@@ -133,6 +124,7 @@ h1 {
     line-height: 50px;
     text-align: justify;
     padding-bottom: 0.25rem;
+    // height: 50px;
 
     overflow: hidden;
     text-overflow: ellipsis;

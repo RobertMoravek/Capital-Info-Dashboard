@@ -34,7 +34,7 @@ watch(photoResponse, () => {
 
 async function getPexelPhotos() {
     try {
-        let query: string = props.capitalName + ' sights ' + props.countryName;
+        let query: string = props.capitalName + ' ' + props.countryName;
         photoResponse.value = await client.photos.search({ query, per_page: 10, size: 'small', orientation: 'landscape' });
     } catch (err) {
         console.log(err);
@@ -51,7 +51,7 @@ function startSlideShow(): void {
             } else {
                 currentPicture.value = 0;
             }
-        }, 5000);
+        }, 7000);
 
     }
 }
