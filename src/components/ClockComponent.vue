@@ -15,13 +15,14 @@ watch(
     }
 );
 
+let newDate = ref<string>();
+
 function calculateTime() {
     if (props.timezoneOffset != null) {
         // let date = moment.utc().utcOffset(60);
 
         let date = moment.utc();
-        let newDate = date.add(props.timezoneOffset, 'seconds');
-        console.log(newDate.format());
+        newDate.value = date.add(props.timezoneOffset, 'seconds').format('hh:mm:ss');
         if (!clockRunning) {
             clockRunning = setInterval(calculateTime, 1000);
         }
@@ -30,7 +31,36 @@ function calculateTime() {
 </script>
 
 <template>
-    <div></div>
+    <div class="mini-component rounded flex-space-between flex-rows">
+        <img src="time.png" alt="Time" />
+        <h1>{{ newDate }}</h1>
+    </div>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+
+
+.mini-component {
+    background: $accentBGColorBlue;
+    grid-column-start: 10;
+    grid-column-end: 12;
+    grid-row-start: 6;
+    grid-row-end: 8;
+
+    @media screen and (max-width: $tablet-breakpoint) {
+        grid-column-start: 5;
+        grid-column-end: 7;
+        grid-row-start: 5;
+        grid-row-end: 6;
+
+    }
+
+    @media screen and (max-width: $mobile-breakpoint) {
+        grid-column-start: 1;
+        grid-column-end: 4;
+        grid-row-start: 9;
+        grid-row-end: 10;
+
+    }
+}
+</style>

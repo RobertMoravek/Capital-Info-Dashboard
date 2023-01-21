@@ -104,7 +104,7 @@ onMounted(async () => {
     // Chose a random country out of it
     choseRandomCountry();
 
-    setInterval(choseRandomCountry, 1000);
+    setInterval(choseRandomCountry, 100000);
 });
 
 // Watch for a change in the currentCountryNumber
@@ -142,17 +142,17 @@ watch(currentCountryNumber, (newNum: number | null, oldNum: number | null) => {
             :countryName="countryData[currentCountryNumber].name.common"
         />
     </Suspense> -->
-    <!-- <Suspense>
+    <Suspense>
         <WeatherComponent
             v-if="currentCountryNumber"
             :cityLat="countryData[currentCountryNumber].capitalInfo.latlng![0]"
             :cityLong="countryData[currentCountryNumber].capitalInfo.latlng![1]"
             @timezone-offset-received="setTimeZoneOffset($event)"
         />
-    </Suspense> -->
-    <!-- <Suspense>
+    </Suspense>
+    <Suspense>
         <ClockComponent v-if="currentCountryNumber" :timezoneOffset="timezoneOffset" />
-    </Suspense> -->
+    </Suspense>
     <!-- <Suspense>
         <HotelComponent v-if="currentCountryNumber" :cityLat="countryData[currentCountryNumber].capitalInfo.latlng![0]"
             :cityLong="countryData[currentCountryNumber].capitalInfo.latlng![1]" />
