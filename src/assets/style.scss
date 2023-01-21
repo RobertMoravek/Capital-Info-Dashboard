@@ -152,6 +152,10 @@ h2 {
     box-shadow: 2px 2px 3px 2px #818181;
 }
 
+.drop-shadow {
+    filter: drop-shadow(2px 2px 3px #818181);
+}
+
 .mini-component {
     flex-direction: column;
     background: $accentBGColorPink;
