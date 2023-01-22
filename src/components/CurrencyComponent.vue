@@ -19,7 +19,7 @@ function extractCurrency() {
     if (Object.keys(props.currencyObject).length > 1) {
         currencyString += ' ';
     }
-    console.log(currencyString);
+    // console.log(currencyString);
 }
 
 extractCurrency();

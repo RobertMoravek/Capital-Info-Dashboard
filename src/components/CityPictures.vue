@@ -27,7 +27,6 @@ watch(
 watch(photoResponse, () => {
     if (photoResponse && !('error' in photoResponse!.value!)) {
         photos.value = photoResponse.value;
-        console.log('starting slideshow');
         startSlideShow();
     }
 });
@@ -47,7 +46,7 @@ function startSlideShow(): void {
         currentPicture.value = 0;
         setInterval(() => {
             if (currentPicture.value < 10) {
-                console.log(currentPicture.value);
+                // console.log(currentPicture.value);
                 currentPicture.value++;
             } else {
                 currentPicture.value = 0;

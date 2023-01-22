@@ -19,7 +19,7 @@ function extractCurrency() {
     // if (Object.keys(props.languageObject).length > 1) {
     //     languageString += ' & others';
     // }
-    console.log(languageString);
+    // console.log(languageString);
 }
 
 extractCurrency();

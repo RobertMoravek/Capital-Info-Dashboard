@@ -44,7 +44,7 @@ async function getHotels(): Promise<void> {
     let checkOutDate = moment().add(1, 'days');
     let formattedCheckInDate = checkInDate.format('YYYY-MM-DD');
     let formattedCheckOutDate = checkOutDate.format('YYYY-MM-DD');
-    console.log(formattedCheckInDate, formattedCheckOutDate);
+    // console.log(formattedCheckInDate, formattedCheckOutDate);
 
     try {
         let hotelsResponseRaw = await fetch(
@@ -55,7 +55,7 @@ async function getHotels(): Promise<void> {
         hotelsResponse.value = await hotelsResponseRaw.json();
         if (Object.keys(await hotelsResponse.value).length > 1) {
             hotelsList.value = await hotelsResponse.value;
-            console.log(hotelsList.value);
+            // console.log(hotelsList.value);
         } else {
             console.log('Error when fetching hotels');
         }
