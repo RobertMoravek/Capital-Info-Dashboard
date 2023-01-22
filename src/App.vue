@@ -22,7 +22,7 @@ let capitalData: Capitals | false;
 let alreadyShownCountries: number[] = reactive([]);
 let currentCountryNumber = ref<number | null>(null);
 let timezoneOffset = ref<number | null>(null);
-const showDashboard: boolean = false;
+const showDashboard = ref<boolean>(false);
 
 //////////////////////////////////////
 //  FUNCTIONS
@@ -110,63 +110,69 @@ onMounted(async () => {
 // Watch for a change in the currentCountryNumber
 watch(currentCountryNumber, (newNum: number | null, oldNum: number | null) => {
     if (oldNum === null) {
-        // Change props -> triggers API call in Components
-        // Wait X amount of time
-        // change showDashboard to true
+        showDashboard.value = true;
     } else {
-        // change showDashboard to false
-        //  Change props -> triggers API call in Components
-        // Wait X amount of time
-        // change showDashboard to true
+        showDashboard.value = false;
+        setTimeout(() => {
+            showDashboard.value = true;
+        }, 1000);
     }
 });
 </script>
 
 <template>
     <Transition>
-        <LoadingDashboard v-if="!currentCountryNumber" />
-    </Transition>
-    <Transition>
-        <CapitalName
-            v-if="currentCountryNumber"
-            :capitalName="countryData[currentCountryNumber].capital![0]"
-            :countryName="countryData[currentCountryNumber].name.common"
-            :flagUrl="countryData[currentCountryNumber].flags.png"
-            :flagEmoji="countryData[currentCountryNumber].flag"
-        />
-    </Transition>
-    <Suspense>
-        <CityPictures
-            v-if="currentCountryNumber"
-            :capitalName="countryData[currentCountryNumber].capital![0]"
-            :countryName="countryData[currentCountryNumber].name.common"
-        />
-    </Suspense>
-    <Suspense>
-        <WeatherComponent
-            v-if="currentCountryNumber"
-            :cityLat="countryData[currentCountryNumber].capitalInfo.latlng![0]"
-            :cityLong="countryData[currentCountryNumber].capitalInfo.latlng![1]"
-            @timezone-offset-received="setTimeZoneOffset($event)"
-        />
-    </Suspense>
-    <Suspense>
-        <ClockComponent v-if="currentCountryNumber" :timezoneOffset="timezoneOffset" />
-    </Suspense>
-    <Suspense>
-        <HotelComponent v-if="currentCountryNumber" :cityLat="countryData[currentCountryNumber].capitalInfo.latlng![0]"
-            :cityLong="countryData[currentCountryNumber].capitalInfo.latlng![1]" />
-    </Suspense>
 
-    <Suspense>
-        <MapComponent
-            v-if="currentCountryNumber"
-            :capitalName="countryData[currentCountryNumber].capital![0]"
-            :countryName="countryData[currentCountryNumber].name.common"
-        />
-    </Suspense>
-    <CurrencyComponent v-if="currentCountryNumber" :currencyObject="countryData[currentCountryNumber].currencies" />
-    <LanguageComponent v-if="currentCountryNumber" :languageObject="countryData[currentCountryNumber].languages" />
+        <div class="dashboard" v-show="showDashboard">
+            <Transition>
+                <LoadingDashboard v-if="!currentCountryNumber" />
+            </Transition>
+            <Transition>
+                <CapitalName
+                    v-if="currentCountryNumber"
+                    :capitalName="countryData[currentCountryNumber].capital![0]"
+                    :countryName="countryData[currentCountryNumber].name.common"
+                    :flagUrl="countryData[currentCountryNumber].flags.png"
+                    :flagEmoji="countryData[currentCountryNumber].flag"
+                />
+            </Transition>
+            <Suspense>
+                <CityPictures
+                    v-if="currentCountryNumber"
+                    :capitalName="countryData[currentCountryNumber].capital![0]"
+                    :countryName="countryData[currentCountryNumber].name.common"
+                />
+            </Suspense>
+            <Suspense>
+                <WeatherComponent
+                    v-if="currentCountryNumber"
+                    :cityLat="countryData[currentCountryNumber].capitalInfo.latlng![0]"
+                    :cityLong="countryData[currentCountryNumber].capitalInfo.latlng![1]"
+                    @timezone-offset-received="setTimeZoneOffset($event)"
+                />
+            </Suspense>
+            <Suspense>
+                <ClockComponent v-if="currentCountryNumber" :timezoneOffset="timezoneOffset" />
+            </Suspense>
+            <Suspense>
+                <HotelComponent
+                    v-if="currentCountryNumber"
+                    :cityLat="countryData[currentCountryNumber].capitalInfo.latlng![0]"
+                    :cityLong="countryData[currentCountryNumber].capitalInfo.latlng![1]"
+                />
+            </Suspense>
+        
+            <Suspense>
+                <MapComponent
+                    v-if="currentCountryNumber"
+                    :capitalName="countryData[currentCountryNumber].capital![0]"
+                    :countryName="countryData[currentCountryNumber].name.common"
+                />
+            </Suspense>
+            <CurrencyComponent v-if="currentCountryNumber" :currencyObject="countryData[currentCountryNumber].currencies" />
+            <LanguageComponent v-if="currentCountryNumber" :languageObject="countryData[currentCountryNumber].languages" />
+        </div>
+    </Transition>
 </template>
 
 <style>

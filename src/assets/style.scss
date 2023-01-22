@@ -21,7 +21,7 @@ html {
         background-repeat: no-repeat;
         background-position: center;
 
-        #app {
+        .dashboard {
             min-height: 600px;
             min-width: 300px;
             height: 100vh;
@@ -218,13 +218,16 @@ h2 {
     }
 
     img {
+        margin-top: 15px;
         height: 40%;
-
+        
         @media screen and (max-width: $tablet-breakpoint) {
+            margin-top: 10px;
             height: 50%;
         }
-
+        
         @media screen and (max-width: $mobile-breakpoint) {
+            margin-top: 0px;
             height: 90%;
         }
     }
