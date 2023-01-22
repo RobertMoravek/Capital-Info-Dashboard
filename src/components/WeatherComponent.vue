@@ -61,7 +61,7 @@ function createWindDeg(): string {
         </div>
         <div class="weather-right flex-space-between flex-rows">
             <h2>{{ weatherData.current.wind_speed }} m/s</h2>
-            <img src="wind-direction.png" alt="wind direction" class="wind-direction drop-shadow" />
+            <img src="/wind-direction.png" alt="wind direction" class="wind-direction drop-shadow" />
         </div>
     </div>
 </template>

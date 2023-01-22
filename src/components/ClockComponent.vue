@@ -32,7 +32,7 @@ function calculateTime() {
 
 <template>
     <div class="mini-component rounded flex-space-between flex-rows">
-        <img src="time.png" alt="Time" />
+        <img src="/time.png" alt="Time" />
         <h1>{{ newDate }}</h1>
     </div>
 </template>

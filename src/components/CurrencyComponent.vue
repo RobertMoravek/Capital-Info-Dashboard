@@ -27,7 +27,7 @@ extractCurrency();
 
 <template>
     <div class="mini-component rounded flex-space-between">
-        <img src="currency.png" alt="Currency" />
+        <img src="/currency.png" alt="Currency" />
         <h1>{{ currencyString }}</h1>
     </div>
 </template>
