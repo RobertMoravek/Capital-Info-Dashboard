@@ -122,7 +122,6 @@ watch(currentCountryNumber, (newNum: number | null, oldNum: number | null) => {
 
 <template>
     <Transition>
-
         <div class="dashboard" v-show="showDashboard">
             <Transition>
                 <LoadingDashboard v-if="!currentCountryNumber" />
@@ -161,7 +160,7 @@ watch(currentCountryNumber, (newNum: number | null, oldNum: number | null) => {
                     :cityLong="countryData[currentCountryNumber].capitalInfo.latlng![1]"
                 />
             </Suspense>
-        
+
             <Suspense>
                 <MapComponent
                     v-if="currentCountryNumber"

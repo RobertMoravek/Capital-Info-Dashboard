@@ -40,7 +40,6 @@ extractCurrency();
     grid-row-start: 6;
     grid-row-end: 8;
 
-
     @media screen and (max-width: $tablet-breakpoint) {
         grid-column-start: 3;
         grid-column-end: 5;

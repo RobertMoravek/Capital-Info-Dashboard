@@ -52,7 +52,6 @@ function startSlideShow(): void {
                 currentPicture.value = 0;
             }
         }, 7000);
-
     }
 }
 </script>

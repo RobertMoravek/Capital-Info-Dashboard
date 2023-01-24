@@ -93,16 +93,16 @@ function createWindDeg(): string {
         }
         @media screen and (min-width: $mobile-breakpoint) {
             padding: 15px 0;
-        img {
-            height: 50px;
+            img {
+                height: 50px;
+            }
         }
-    }
         @media screen and (min-width: $tablet-breakpoint) {
             padding: 30px 0;
-        img {
-            height: 60px;
+            img {
+                height: 60px;
+            }
         }
-    }
     }
     .weather-right {
         height: 100%;
@@ -115,11 +115,11 @@ function createWindDeg(): string {
 
         @media screen and (min-width: $tablet-breakpoint) {
             padding-top: 30px;
-        padding-bottom: 45px;
-        img {
-            height: 35px;
+            padding-bottom: 45px;
+            img {
+                height: 35px;
+            }
         }
-    }
     }
 }
 </style>

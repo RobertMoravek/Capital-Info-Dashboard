@@ -117,13 +117,12 @@ getHotels();
         @media screen and (min-width: $tablet-breakpoint) {
             gap: 0px;
             flex-direction: column;
-
         }
 
         .hotel {
             width: 50%;
             max-width: 50%;
-            
+
             @media screen and (min-width: $mobile-breakpoint) {
                 width: 100%;
                 max-width: 100%;
@@ -162,7 +161,6 @@ getHotels();
                     white-space: nowrap;
                     text-overflow: ellipsis;
                     overflow: hidden;
-
                 }
             }
         }

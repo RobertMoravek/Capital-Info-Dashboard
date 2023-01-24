@@ -38,8 +38,6 @@ function calculateTime() {
 </template>
 
 <style lang="scss" scoped>
-
-
 .mini-component {
     background: $accentBGColorBlue;
     grid-column-start: 10;
@@ -52,7 +50,6 @@ function calculateTime() {
         grid-column-end: 7;
         grid-row-start: 5;
         grid-row-end: 6;
-
     }
 
     @media screen and (max-width: $mobile-breakpoint) {
@@ -60,7 +57,6 @@ function calculateTime() {
         grid-column-end: 4;
         grid-row-start: 9;
         grid-row-end: 10;
-
     }
 }
 </style>

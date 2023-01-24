@@ -58,11 +58,10 @@ extractCurrency();
         @media screen and (min-width: $mobile-breakpoint) {
             height: auto;
         }
-        
+
         @media screen and (min-width: $tablet-breakpoint) {
             height: 50px;
         }
-        
     }
 }
 </style>
