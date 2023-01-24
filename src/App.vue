@@ -104,7 +104,7 @@ onMounted(async () => {
     // Chose a random country out of it
     choseRandomCountry();
 
-    setInterval(choseRandomCountry, 1000000);
+    setInterval(choseRandomCountry, 10000);
 });
 
 // Watch for a change in the currentCountryNumber
@@ -122,10 +122,10 @@ watch(currentCountryNumber, (newNum: number | null, oldNum: number | null) => {
 
 <template>
     <Transition>
+        <LoadingDashboard v-if="!currentCountryNumber" />
+    </Transition>
+    <Transition>
         <div class="dashboard" v-show="showDashboard">
-            <Transition>
-                <LoadingDashboard v-if="!currentCountryNumber" />
-            </Transition>
             <Transition>
                 <CapitalName
                     v-if="currentCountryNumber"
