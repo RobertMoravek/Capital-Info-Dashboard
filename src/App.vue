@@ -69,8 +69,11 @@ async function choseRandomCountry(): Promise<any> {
         if (tempCapitalData) {
             alreadyShownCountries = [];
             alreadyShownCountries.push(randomNumber);
-            currentCountryNumber.value = randomNumber;
-            capitalData = tempCapitalData;
+            showDashboard.value = false;
+            setTimeout(() => {
+                currentCountryNumber.value = randomNumber;
+                capitalData = tempCapitalData;
+            }, 1000);
         } else {
             choseRandomCountry();
         }
@@ -79,8 +82,11 @@ async function choseRandomCountry(): Promise<any> {
         let tempCapitalData: false | Capitals = await getCapitalData(countryData[randomNumber].capital![0]);
         if (tempCapitalData) {
             alreadyShownCountries.push(randomNumber);
-            currentCountryNumber.value = randomNumber;
-            capitalData = tempCapitalData;
+            showDashboard.value = false;
+            setTimeout(() => {
+                currentCountryNumber.value = randomNumber;
+                capitalData = tempCapitalData;
+            }, 1000);
             // console.log(countryData[randomNumber]);
             // console.log(capitalData);
         } else {
@@ -104,7 +110,7 @@ onMounted(async () => {
     // Chose a random country out of it
     choseRandomCountry();
 
-    setInterval(choseRandomCountry, 100000);
+    setInterval(choseRandomCountry, 10000);
 });
 
 // Watch for a change in the currentCountryNumber
@@ -112,10 +118,8 @@ watch(currentCountryNumber, (newNum: number | null, oldNum: number | null) => {
     if (oldNum === null) {
         showDashboard.value = true;
     } else {
-        showDashboard.value = false;
-        setTimeout(() => {
-            showDashboard.value = true;
-        }, 1000);
+        showDashboard.value = true;
+
     }
 });
 </script>
