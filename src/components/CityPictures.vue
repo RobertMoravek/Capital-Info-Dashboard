@@ -23,13 +23,6 @@ watch(
     }
 );
 
-watch(photoResponse, () => {
-    if (photoResponse && !('error' in photoResponse!.value!)) {
-        photos.value = photoResponse.value;
-        startSlideShow();
-    }
-});
-
 async function getPexelPhotos() {
     try {
         let query: string = props.capitalName + ' ' + props.countryName;
@@ -39,7 +32,10 @@ async function getPexelPhotos() {
             headers: { Authorization: pexelsKey }
         });
         photoResponse.value = await temp.json();
-
+        if (photoResponse && !('error' in photoResponse!.value!)) {
+            photos.value = photoResponse.value;
+            startSlideShow();
+        }
     } catch (err) {
         console.log(err);
     }
@@ -62,8 +58,8 @@ function startSlideShow(): void {
 </script>
 
 <template>
-    <div class="photos rounded bg-light" v-if="photos">
-        <TransitionGroup appear>
+    <div class="photos rounded bg-light" >
+        <TransitionGroup appear v-if="photos">
             <img :src="photo.src.medium" alt="" v-for="(photo, index) in photos!.photos" :key="index" v-show="index == currentPicture" />
         </TransitionGroup>
     </div>
