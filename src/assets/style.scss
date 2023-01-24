@@ -29,8 +29,8 @@ html {
             display: grid;
             grid-template-columns: repeat(11, 1fr);
             grid-template-rows: repeat(7, 1fr);
-            grid-column-gap: 20px;
-            grid-row-gap: 20px;
+            grid-column-gap: 10px;
+            grid-row-gap: 10px;
 
             @media screen and (max-width: $tablet-breakpoint) {
                 height: auto;
@@ -38,17 +38,18 @@ html {
                 display: grid;
                 grid-template-columns: repeat(6, 1fr);
                 grid-template-rows: repeat(9, 110px);
-                grid-column-gap: 25px;
-                grid-row-gap: 25px;
+                grid-column-gap: 10px;
+                grid-row-gap: 10px;
             }
 
             @media screen and (max-width: $mobile-breakpoint) {
                 height: auto;
                 padding: 15px;
+                padding-right: 30px;
                 display: grid;
                 grid-template-columns: repeat(3, 33%);
                 grid-template-rows: repeat(18, 50px);
-                grid-column-gap: 0px;
+                grid-column-gap: 10px;
                 grid-row-gap: 10px;
             }
         }
@@ -78,24 +79,24 @@ html {
 }
 
 .rounded {
-    border-radius: 10px;
+    border-radius: 5px;
 
     @media screen and (min-width: $mobile-breakpoint) {
-        border-radius: 15px;
+        border-radius: 5px;
     }
     @media screen and (min-width: $tablet-breakpoint) {
-        border-radius: 20px;
+        border-radius: 5px;
     }
 }
 
 .border-light {
     border: 3px solid $mainLightColor;
+
     @media screen and (min-width: $mobile-breakpoint) {
-    border-width: 5px;
-}
-@media screen and (min-width: $tablet-breakpoint) {
-    border-width: 7px;
-    
+        border-width: 3px;
+    }
+    @media screen and (min-width: $tablet-breakpoint) {
+        border-width: 3px;
     }
 }
 
@@ -103,10 +104,10 @@ html {
     background-color: $mainLightColor;
 }
 
-.v-leave-activ{
+.v-leave-activ {
     transition: opacity 1s ease;
 }
-.v-enter-active{
+.v-enter-active {
     transition: opacity 1s ease 1s;
 }
 
@@ -115,7 +116,6 @@ html {
     opacity: 0;
     transition: opacity 1s ease;
 }
-
 
 h1 {
     font-style: normal;
@@ -180,7 +180,7 @@ h2 {
     grid-column-end: 10;
     grid-row-start: 6;
     grid-row-end: 8;
-    border: 7px solid $mainLightColor;
+    // border: 5px solid $mainLightColor;
 
     @media screen and (max-width: $tablet-breakpoint) {
         grid-column-start: 3;
@@ -188,7 +188,7 @@ h2 {
         grid-row-start: 5;
         grid-row-end: 6;
         padding: 10px;
-        border: 5px solid $mainLightColor;
+        // border: 5px solid $mainLightColor;
     }
 
     @media screen and (max-width: $mobile-breakpoint) {
@@ -198,7 +198,7 @@ h2 {
         grid-row-start: 8;
         grid-row-end: 9;
         padding: 5px 40px;
-        border: 3px solid $mainLightColor;
+        // border: 3px solid $mainLightColor;
     }
 
     h1 {
@@ -220,12 +220,12 @@ h2 {
     img {
         margin-top: 15px;
         height: 40%;
-        
+
         @media screen and (max-width: $tablet-breakpoint) {
             margin-top: 10px;
             height: 50%;
         }
-        
+
         @media screen and (max-width: $mobile-breakpoint) {
             margin-top: 0px;
             height: 90%;

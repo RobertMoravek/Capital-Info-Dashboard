@@ -31,7 +31,7 @@ function calculateTime() {
 </script>
 
 <template>
-    <div class="mini-component rounded flex-space-between flex-rows">
+    <div class="mini-component rounded flex-space-between flex-rows border-light">
         <img src="/time.png" alt="Time" />
         <h1>{{ newDate }}</h1>
     </div>
