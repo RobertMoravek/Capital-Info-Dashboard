@@ -54,15 +54,12 @@ function createWindDeg(): string {
 
 <template>
     <div></div>
-    <div class="weather rounded bg-light flex-space-around" v-if="weatherData">
-        <div class="weather-left flex-space-between flex-rows">
-            <h2>{{ weatherData.current.temp }} °C</h2>
-            <img :src="createIconUrl()" alt="" class="drop-shadow" />
-        </div>
-        <div class="weather-right flex-space-between flex-rows">
-            <h2>{{ weatherData.current.wind_speed }} m/s</h2>
-            <img src="/wind-direction.png" alt="wind direction" class="wind-direction drop-shadow" />
-        </div>
+    <div class="weather rounded bg-light" v-if="weatherData">
+        <h2 class="temp">{{ weatherData.current.temp }} °C</h2>
+        <img :src="createIconUrl()" alt="" class="drop-shadow weather-icon" />
+
+        <h2 class="windspeed">{{ weatherData.current.wind_speed }} m/s</h2>
+        <img src="/wind-direction.png" alt="wind direction" class="wind-direction drop-shadow" />
     </div>
 </template>
 
@@ -72,6 +69,14 @@ function createWindDeg(): string {
     grid-column-end: 4;
     grid-row-start: 10;
     grid-row-end: 12;
+
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(3, 33%);
+
+    height: 100%;
+    box-sizing: content-box;
+
     @media screen and (min-width: $mobile-breakpoint) {
         grid-column-start: 1;
         grid-column-end: 5;
@@ -85,41 +90,35 @@ function createWindDeg(): string {
         grid-row-end: 3;
     }
 
-    .weather-left {
-        height: 100%;
-        padding: 15px 0;
-        img {
-            height: 50px;
-        }
-        @media screen and (min-width: $mobile-breakpoint) {
-            padding: 15px 0;
-            img {
-                height: 50px;
-            }
-        }
-        @media screen and (min-width: $tablet-breakpoint) {
-            padding: 30px 0;
-            img {
-                height: 60px;
-            }
-        }
+    .temp {
+        grid-column: 1/3;
+        grid-row: 1/2;
+        align-self: flex-end;
+        justify-self: center;
     }
-    .weather-right {
-        height: 100%;
-        padding-top: 15px;
-        padding-bottom: 25px;
-        img {
-            height: 30px;
-            transform: rotate(v-bind(createWindDeg()));
-        }
 
-        @media screen and (min-width: $tablet-breakpoint) {
-            padding-top: 30px;
-            padding-bottom: 45px;
-            img {
-                height: 35px;
-            }
-        }
+    .weather-icon {
+        grid-column: 1/3;
+        grid-row: 2/4;
+        height: 100%;
+        align-self: center;
+        justify-self: center;
+    }
+
+    .windspeed {
+        grid-column: 3/5;
+        grid-row: 1/2;
+        align-self: flex-end;
+        justify-self: center;
+    }
+
+    .wind-direction {
+        grid-column: 3/5;
+        grid-row: 2/4;
+        align-self: center;
+        justify-self: center;
+        height: 50%;
+        transform: rotate(v-bind(createWindDeg()));
     }
 }
 </style>
