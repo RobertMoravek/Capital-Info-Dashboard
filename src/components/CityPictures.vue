@@ -4,7 +4,6 @@ import { onMounted, ref, watch } from 'vue';
 import { createClient } from 'pexels';
 
 const pexelsKey = import.meta.env.VITE_pexelsKey;
-const client = createClient(pexelsKey);
 
 const props = defineProps<{
     capitalName: string | undefined;
@@ -34,7 +33,13 @@ watch(photoResponse, () => {
 async function getPexelPhotos() {
     try {
         let query: string = props.capitalName + ' ' + props.countryName;
-        photoResponse.value = await client.photos.search({ query, per_page: 10, size: 'small', orientation: 'landscape' });
+        // photoResponse.value = await client.photos.search({ query, per_page: 10, size: 'small', orientation: 'landscape' });
+
+        let temp = await fetch(`https://api.pexels.com/v1/search?query=${query}&per_page=10&size=small&orientation=landscape`, {
+            headers: { Authorization: pexelsKey }
+        });
+        photoResponse.value = await temp.json();
+
     } catch (err) {
         console.log(err);
     }
