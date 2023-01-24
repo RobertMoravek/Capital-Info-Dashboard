@@ -3,35 +3,22 @@ import { ref } from 'vue';
 </script>
 
 <template>
-    <div class="loading-screen flex-center rounded">
+    <div class="loading-screen rounded border-light">
         <p>Loading</p>
     </div>
 </template>
 
 <style lang="scss" scoped>
 .loading-screen {
-    padding: 30px;
-    grid-column-start: 1;
-    grid-column-end: 4;
-    grid-row-start: 4;
-    grid-row-end: 6;
-
-    border: 3px solid $mainLightColor;
-    @media screen and (min-width: $mobile-breakpoint) {
-        grid-column-start: 2;
-        grid-column-end: 6;
-        grid-row-start: 2;
-        grid-row-end: 4;
-    }
-    @media screen and (min-width: $tablet-breakpoint) {
-        grid-column-start: 5;
-        grid-column-end: 9;
-        grid-row-start: 3;
-        grid-row-end: 5;
-    }
-
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
     p {
+        padding: 30px;
         color: $mainLightColor;
+
     }
 }
 </style>
