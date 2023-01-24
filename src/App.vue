@@ -104,7 +104,7 @@ onMounted(async () => {
     // Chose a random country out of it
     choseRandomCountry();
 
-    setInterval(choseRandomCountry, 10000);
+    setInterval(choseRandomCountry, 100000);
 });
 
 // Watch for a change in the currentCountryNumber
