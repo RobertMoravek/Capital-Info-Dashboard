@@ -16,17 +16,13 @@ watch(
 
 function extractCurrency() {
     languageString = props.languageObject[Object.keys(props.languageObject)[0]];
-    // if (Object.keys(props.languageObject).length > 1) {
-    //     languageString += ' & others';
-    // }
-    // console.log(languageString);
 }
 
 extractCurrency();
 </script>
 
 <template>
-    <div class="mini-component rounded flex-space-between">
+    <div class="mini-component rounded flex-space-between border-light">
         <img src="/language.png" alt="Currency" />
         <h1>{{ languageString }}</h1>
     </div>
