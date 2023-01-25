@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import type { PhotosWithTotalResults, ErrorResponse } from 'pexels';
+import type { PhotosWithTotalResults, ErrorResponse } from '../types/PexelTypes';
 import { onMounted, ref, watch } from 'vue';
-import { createClient } from 'pexels';
 
 const pexelsKey = import.meta.env.VITE_pexelsKey;
 
@@ -58,7 +57,7 @@ function startSlideShow(): void {
 </script>
 
 <template>
-    <div class="photos rounded bg-light" >
+    <div class="photos rounded bg-light">
         <TransitionGroup appear v-if="photos">
             <img :src="photo.src.medium" alt="" v-for="(photo, index) in photos!.photos" :key="index" v-show="index == currentPicture" />
         </TransitionGroup>
